@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Video Search</title>
+</head>
+
+<body>
+
+  <h1>YouTube Video Search</h1>
+
+  <input type="text" id="searchInput" placeholder="Enter search keyword">
+  <button onclick="searchVideos()">Search</button>
+
+  <div id="searchResults"></div>
+
+  <script>
+    // Replace 'YOUR_API_KEY' with your actual YouTube Data API key
+    const API_KEY = 'AIzaSyDpmN3VDO_RL-xMNRnzaK2R_EtVMh4Vuis';
+
+    function searchVideos() {
+      const searchInput = document.getElementById('searchInput').value;
+
+      fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchInput}&part=snippet&type=video`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (!data || !data.items || data.items.length === 0) {
+            throw new Error('No video found');
+          }
+          console.log(data.items[0].id.videoId);
+          displayResults(data.items)
+        })
+        .catch(error => {
+          console.error('Error fetching or displaying data:', error);
+        });
+    }
+
+
+    function displayResults(videos) {
+      const searchResults = document.getElementById('searchResults');
+      searchResults.innerHTML = '';
+
+      videos.forEach(video => {
+        const videoId = video.id.videoId;
+        const title = video.snippet.title;
+        const thumbnailUrl = video.snippet.thumbnails.default.url;
+
+        //     const resultItem = document.createElement('div');
+        //     resultItem.innerHTML = `
+        //   <h2>${title}</h2>
+        //   <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+        //     <img src="${thumbnailUrl}" alt="${title}">
+        //   </a>
+        // `;
+        //     searchResults.appendChild(resultItem);
+        //   });
+        console.log(videoId, title, thumbnailUrl)
+      })
+    }
+  </script>
+
+</body>
+
+</html>
