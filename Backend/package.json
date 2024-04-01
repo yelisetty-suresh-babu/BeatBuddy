@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "yt-converter": "^2.0.0",
+    "yt-get": "^1.1.2"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  } 
+}

@@ -1,12 +1,15 @@
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
+import Cards from "./Cards";
 
 function SongDownloader() {
   // useEffect(() => {
   //   console.log(import.meta.env.VITE_rapid_api_key);
   // }, []);
   const [link, setLink] = useState("");
+  const [names, setNames] = useState(["temp2", "temp1", "temp1", "temp1"]);
+
   function extractPlaylistID(url) {
     const regex = /playlist\/([a-zA-Z0-9]+)/;
     const match = url.match(regex);
@@ -40,6 +43,7 @@ function SongDownloader() {
     }
     console.log("List of video IDs:", listOfVideoIds);
   };
+
   const handle = async (e) => {
     e.preventDefault();
     const id_ = extractPlaylistID(link);
@@ -61,11 +65,15 @@ function SongDownloader() {
     try {
       console.log("made the api call");
       const res = await axios.request(options);
-      return get_ids(
-        res.data.items.map((data) => {
-          return data.track.name + " " + data.track.album.artists[0].name;
-        })
-      );
+
+      res.data.items.map((data) => {
+        return data.track.name + " " + data.track.album.artists[0].name;
+      });
+      // return get_ids(
+      //   res.data.items.map((data) => {
+      //     return data.track.name + " " + data.track.album.artists[0].name;
+      //   })
+      // );
       // console.log(options);
     } catch (error) {
       console.log(error);
@@ -74,7 +82,7 @@ function SongDownloader() {
 
   return (
     <>
-      <div className="flex flex-col items-center bg-white mt-5">
+      {/* <div className="flex flex-col items-center bg-white mt-5">
         <form
           onSubmit={handle}
           className="flex items-center gap-y-2 flex-col bg-white"
@@ -92,7 +100,19 @@ function SongDownloader() {
             click{" "}
           </button>
         </form>
-      </div>
+      </div> */}
+
+      {names ? (
+        <div className="mt-10 bg-white ">
+          {names.map((data, index) => (
+            <a href="" key={data}>
+              <Cards key={data} vals={data} ind={index + 1} />
+            </a>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
