@@ -9,6 +9,7 @@ lerna-debug.log*
 
 .env 
 
+music
 node_modules
 dist
 dist-ssr

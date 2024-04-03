@@ -8,7 +8,7 @@ function SongDownloader() {
   //   console.log(import.meta.env.VITE_rapid_api_key);
   // }, []);
   const [link, setLink] = useState("");
-  const [names, setNames] = useState(["temp2", "temp1", "temp1", "temp1"]);
+  const [names, setNames] = useState();
 
   function extractPlaylistID(url) {
     const regex = /playlist\/([a-zA-Z0-9]+)/;
@@ -66,15 +66,24 @@ function SongDownloader() {
       console.log("made the api call");
       const res = await axios.request(options);
 
-      res.data.items.map((data) => {
-        return data.track.name + " " + data.track.album.artists[0].name;
-      });
+      setNames(
+        res.data.items.map((data) => {
+          return {
+            name: data.track.name,
+            artist: data.track.album.artists[0].name,
+            image: data.track.album.images[2].url,
+          };
+        })
+      );
+
+      // );
       // return get_ids(
       //   res.data.items.map((data) => {
       //     return data.track.name + " " + data.track.album.artists[0].name;
       //   })
       // );
-      // console.log(options);
+      console.log(res);
+      console.log(names);
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +91,7 @@ function SongDownloader() {
 
   return (
     <>
-      {/* <div className="flex flex-col items-center bg-white mt-5">
+      <div className="flex flex-col items-center bg-white mt-5">
         <form
           onSubmit={handle}
           className="flex items-center gap-y-2 flex-col bg-white"
@@ -91,7 +100,7 @@ function SongDownloader() {
             type="text"
             value={link}
             onChange={(e) => setLink(e.target.value)}
-            className="border-black border-[1px] rounded-lg"
+            className="border-black border-[1px] rounded-md px-2 py-1"
           />
           <button
             type="submit"
@@ -100,14 +109,17 @@ function SongDownloader() {
             click{" "}
           </button>
         </form>
-      </div> */}
+      </div>
 
       {names ? (
         <div className="mt-10 bg-white ">
           {names.map((data, index) => (
-            <a href="" key={data}>
-              <Cards key={data} vals={data} ind={index + 1} />
-            </a>
+            <Cards
+              key={index}
+              name={data.name}
+              image={data.image}
+              artist={data.artist}
+            />
           ))}
         </div>
       ) : (
@@ -118,3 +130,95 @@ function SongDownloader() {
 }
 
 export default SongDownloader;
+
+// {
+//   "added_at": "2022-12-09T15:46:23Z",
+//   "added_by": {
+//       "external_urls": {
+//           "spotify": "https://open.spotify.com/user/31ro2oibcuc7gzeyxviptxhnw54a"
+//       },
+//       "id": "31ro2oibcuc7gzeyxviptxhnw54a",
+//       "type": "user",
+//       "uri": "spotify:user:31ro2oibcuc7gzeyxviptxhnw54a"
+//   },
+//   "is_local": false,
+//   "primary_color": null,
+//   "track": {
+//       "album": {
+//           "album_type": "album",
+//           "artists": [
+//               {
+//                   "external_urls": {
+//                       "spotify": "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we"
+//                   },
+//                   "id": "6M2wZ9GZgrQXHCFfjv46we",
+//                   "name": "Dua Lipa",
+//                   "type": "artist",
+//                   "uri": "spotify:artist:6M2wZ9GZgrQXHCFfjv46we"
+//               }
+//           ],
+//           "external_urls": {
+//               "spotify": "https://open.spotify.com/album/7fJJK56U9fHixgO0HQkhtI"
+//           },
+//           "id": "7fJJK56U9fHixgO0HQkhtI",
+//           "images": [
+//               {
+//                   "height": 640,
+//                   "url": "https://i.scdn.co/image/ab67616d0000b2734bc66095f8a70bc4e6593f4f",
+//                   "width": 640
+//               },
+//               {
+//                   "height": 300,
+//                   "url": "https://i.scdn.co/image/ab67616d00001e024bc66095f8a70bc4e6593f4f",
+//                   "width": 300
+//               },
+//               {
+//                   "height": 64,
+//                   "url": "https://i.scdn.co/image/ab67616d000048514bc66095f8a70bc4e6593f4f",
+//                   "width": 64
+//               }
+//           ],
+//           "is_playable": true,
+//           "name": "Future Nostalgia",
+//           "release_date": "2020-03-27",
+//           "release_date_precision": "day",
+//           "total_tracks": 11,
+//           "type": "album",
+//           "uri": "spotify:album:7fJJK56U9fHixgO0HQkhtI"
+//       },
+//       "artists": [
+//           {
+//               "external_urls": {
+//                   "spotify": "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we"
+//               },
+//               "id": "6M2wZ9GZgrQXHCFfjv46we",
+//               "name": "Dua Lipa",
+//               "type": "artist",
+//               "uri": "spotify:artist:6M2wZ9GZgrQXHCFfjv46we"
+//           }
+//       ],
+//       "disc_number": 1,
+//       "duration_ms": 203807,
+//       "episode": false,
+//       "explicit": false,
+//       "external_ids": {
+//           "isrc": "GBAHT1901299"
+//       },
+//       "external_urls": {
+//           "spotify": "https://open.spotify.com/track/39LLxExYz6ewLAcYrzQQyP"
+//       },
+//       "id": "39LLxExYz6ewLAcYrzQQyP",
+//       "is_local": false,
+//       "is_playable": true,
+//       "name": "Levitating",
+//       "popularity": 78,
+//       "preview_url": "https://p.scdn.co/mp3-preview/ac28d1b0be285ed3bfd8e9fa5fad133776d7cf36?cid=d8a5ed958d274c2e8ee717e6a4b0971d",
+//       "track": true,
+//       "track_number": 5,
+//       "type": "track",
+//       "uri": "spotify:track:39LLxExYz6ewLAcYrzQQyP"
+//   },
+//   "video_thumbnail": {
+//       "url": null
+//   }
+// }

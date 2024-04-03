@@ -1,16 +1,15 @@
 import React from "react";
 
-function Cards({ vals, ind }) {
+function Cards({ name, artist, image }) {
   return (
     <div className="flex items-center justify-center ">
-      <div className=" w-[90%] bg-gray-300 h-[80px] m-2 rounded-lg flex items-center justify-around">
-        <img
-          src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-          alt=""
-          className="w-10"
-        />
-        <p>{ind}</p>
-        <p>{vals}</p>
+      <div className=" w-[90%] bg-gray-300 h-[100px] m-2 rounded-lg flex items-center justify-between px-[10%]">
+        <img src={image} alt="" className="w-15 rounded-xl " />
+        <div className="flex flex-col items-center">
+          <p>{name}</p>
+          <p>{artist}</p>
+        </div>
+        {/* <img src={image} alt="" /> */}
 
         <button>Download</button>
       </div>

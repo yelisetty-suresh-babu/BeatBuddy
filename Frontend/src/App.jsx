@@ -7,7 +7,7 @@ import Download_Page from "./components/Download_Page";
 function App() {
   return (
     <div className="App bg-gray-50">
-      {/* <SongDownloader /> */}
+      <SongDownloader />
       {/* <AudioRecorder /> */}
       {/* <First /> */}
       {/* <ShazamBtn /> */}
