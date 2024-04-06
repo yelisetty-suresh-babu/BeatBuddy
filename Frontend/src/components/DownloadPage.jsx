@@ -1,6 +1,6 @@
 import React from "react";
 
-function Download_Page() {
+function DownloadPage() {
   return (
     <div className="flex flex-col items-center justify-center bg-white mt-10">
       <button className="self-start ml-10">←</button>
@@ -19,4 +19,4 @@ function Download_Page() {
   );
 }
 
-export default Download_Page;
+export default DownloadPage;
