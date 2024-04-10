@@ -2,6 +2,7 @@ import axios from "axios";
 
 import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
+import { Link } from "react-router-dom";
 
 function SongDownloader() {
   // useEffect(() => {
@@ -71,7 +72,9 @@ function SongDownloader() {
           return {
             name: data.track.name,
             artist: data.track.album.artists[0].name,
-            image: data.track.album.images[2].url,
+            image1: data.track.album.images[1].url,
+            image2: data.track.album.images[2].url,
+            album: data.track.album.name,
           };
         })
       );
@@ -114,12 +117,22 @@ function SongDownloader() {
       {names ? (
         <div className="mt-10 bg-white ">
           {names.map((data, index) => (
-            <Cards
+            <Link
+              to={`/${data.name}`}
+              state={{
+                image: data.image1,
+                artist: data.artist,
+                album: data.album,
+              }}
               key={index}
-              name={data.name}
-              image={data.image}
-              artist={data.artist}
-            />
+            >
+              <Cards
+                key={index}
+                name={data.name}
+                image2={data.image2}
+                artist={data.artist}
+              />
+            </Link>
           ))}
         </div>
       ) : (

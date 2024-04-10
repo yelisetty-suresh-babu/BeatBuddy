@@ -36,7 +36,6 @@
 
 // export default App;
 
-
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AudioRecorder from "./components/AudioRecorder";
@@ -52,6 +51,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<MusicPlayer />} />
           <Route path="/download" element={<SongDownloader />} />
+          <Route path="/:name" element={<DownloadPage />} />
           <Route path="/recognize" element={<AudioRecorder />} />
         </Route>
       </Routes>
