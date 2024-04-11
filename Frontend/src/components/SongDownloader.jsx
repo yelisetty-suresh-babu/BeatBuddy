@@ -10,6 +10,20 @@ function SongDownloader() {
   // }, []);
   const [link, setLink] = useState("");
   const [names, setNames] = useState();
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    const storedLink = localStorage.getItem("savedLink");
+    if (storedLink) {
+      setLink(storedLink);
+    }
+    const cachedData = localStorage.getItem("cachedData");
+    if (cachedData) {
+      // If data is cached, set it in the state directly
+      setNames(JSON.parse(cachedData));
+      return; // Exit the function to avoid making the API call
+    }
+  }, []);
 
   function extractPlaylistID(url) {
     const regex = /playlist\/([a-zA-Z0-9]+)/;
@@ -47,6 +61,15 @@ function SongDownloader() {
 
   const handle = async (e) => {
     e.preventDefault();
+    // Check if the data is already cached
+    const cachedData = localStorage.getItem("cachedData");
+    if (cachedData) {
+      // If data is cached, set it in the state directly
+      setNames(JSON.parse(cachedData));
+      return; // Exit the function to avoid making the API call
+    }
+
+    localStorage.setItem("savedLink", link);
     const id_ = extractPlaylistID(link);
     const options = {
       method: "GET",
@@ -67,30 +90,75 @@ function SongDownloader() {
       console.log("made the api call");
       const res = await axios.request(options);
 
-      setNames(
-        res.data.items.map((data) => {
-          return {
-            name: data.track.name,
-            artist: data.track.album.artists[0].name,
-            image1: data.track.album.images[1].url,
-            image2: data.track.album.images[2].url,
-            album: data.track.album.name,
-          };
-        })
-      );
+      const processedData = res.data.items.map((data) => ({
+        name: data.track.name,
+        artist: data.track.album.artists[0].name,
+        image1: data.track.album.images[1].url,
+        image2: data.track.album.images[2].url,
+        album: data.track.album.name,
+      }));
 
-      // );
-      // return get_ids(
-      //   res.data.items.map((data) => {
-      //     return data.track.name + " " + data.track.album.artists[0].name;
-      //   })
-      // );
+      // Cache the result
+      localStorage.setItem("cachedData", JSON.stringify(processedData));
+      // Set the data in the state
+      setNames(processedData);
+
       console.log(res);
       console.log(names);
     } catch (error) {
       console.log(error);
     }
+    console.log("handled");
   };
+
+  // const handle = async (e) => {
+  //   e.preventDefault();
+  //   localStorage.setItem("savedLink", link);
+  //   const id_ = extractPlaylistID(link);
+  //   const options = {
+  //     method: "GET",
+  //     url: "https://spotify23.p.rapidapi.com/playlist_tracks/",
+  //     params: {
+  //       id: id_,
+  //       offset: "0",
+  //       limit: "100",
+  //     },
+  //     headers: {
+  //       "X-RapidAPI-Key": import.meta.env.VITE_rapid_api_key,
+
+  //       "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+  //     },
+  //   };
+
+  //   try {
+  //     console.log("made the api call");
+  //     const res = await axios.request(options);
+
+  //     setNames(
+  //       res.data.items.map((data) => {
+  //         return {
+  //           name: data.track.name,
+  //           artist: data.track.album.artists[0].name,
+  //           image1: data.track.album.images[1].url,
+  //           image2: data.track.album.images[2].url,
+  //           album: data.track.album.name,
+  //         };
+  //       })
+  //     );
+
+  //     // );
+  //     // return get_ids(
+  //     //   res.data.items.map((data) => {
+  //     //     return data.track.name + " " + data.track.album.artists[0].name;
+  //     //   })
+  //     // );
+  //     console.log(res);
+  //     console.log(names);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   console.log("handled");
+  // };
 
   return (
     <>

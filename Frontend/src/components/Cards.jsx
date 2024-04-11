@@ -1,7 +1,7 @@
 import React from "react";
 
 function Cards({ name, artist, image2 }) {
-  console.log(image2)
+  // console.log(image2)
   return (
     <div className="flex items-center justify-center ">
       <div className=" w-[90%] bg-gray-300 h-[100px] m-2 rounded-lg flex items-center justify-between px-[10%]">

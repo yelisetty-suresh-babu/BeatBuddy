@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 function MusicPlayer() {
-  return (
-    <div>MusicPlayer</div>
-  )
+  useEffect(() => {
+    localStorage.removeItem("savedLink");
+    localStorage.removeItem("cachedData");
+  }, []);
+  return <div>MusicPlayer</div>;
 }
 
-export default MusicPlayer
+export default MusicPlayer;

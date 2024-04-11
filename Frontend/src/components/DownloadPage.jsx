@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 const call_yt = async (str) => {
   const val =
@@ -12,10 +12,9 @@ const call_yt = async (str) => {
 
 const get_ids = async (str) => {
   console.log(str);
-
   try {
     const videoId = await call_yt(str);
-    console.log(videoId);
+    // console.log(videoId);
     return videoId;
   } catch (error) {
     console.error(`Error fetching videoId for '${str}':`, error);
@@ -24,10 +23,10 @@ const get_ids = async (str) => {
 
 function DownloadPage() {
   const params = useParams();
+  const navigate = useNavigate();
   // const { image, artist } = useLocation();
   const { image, artist, album } = useLocation().state;
-  // useEffect(() => console.log(image, artist, params), []);
-  // useEffect(() => console.log(image, artist, album, params), []);
+  const [downloaded, setDownloaded] = useState(false);
 
   const handle = async () => {
     // console.log(params.name);
@@ -37,12 +36,19 @@ function DownloadPage() {
     const res = await axios.post("http://localhost:3000/convert", {
       videoID: id,
     });
+    setDownloaded(true);
     console.log(res);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center bg-white mt-10">
-      <button className="self-start ml-10">←</button>
+    <div className="flex flex-col items-center justify-center bg-white mt-10 ">
+      <button className="self-start ml-10" onClick={goBack}>
+        ←
+      </button>
       <div
         className="w-96 h-56 bg-cover bg-center flex items-end justify-center rounded-xl"
         style={{
@@ -63,6 +69,11 @@ function DownloadPage() {
         <h1>{artist}</h1>
         <h1>{album}</h1>
       </div>
+      {downloaded ? (
+        <div className="mt-5 text-3xl font-bold">Song is Downloaded</div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
