@@ -194,7 +194,7 @@ function AudioRecorder() {
           url: "https://shazam-api6.p.rapidapi.com/shazam/recognize/",
           headers: {
             "X-RapidAPI-Key":
-              "ad65a452famsh0af741fddd6c32ep192841jsnb496421e93bd",
+            import.meta.env.VITE_rapid_api_key,
             "X-RapidAPI-Host": "shazam-api6.p.rapidapi.com",
             "Content-Type": "multipart/form-data",
           },
