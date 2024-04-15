@@ -26,6 +26,7 @@
 
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const { getVideoMP3Base64, getVideoTitle } = require("yt-get");
 const cors = require("cors");
 
@@ -67,6 +68,39 @@ app.post("/convert", async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+const songsDirectory = path.join(__dirname, "music");
+
+
+app.get("/songs", (req, res) => {
+  fs.readdir(songsDirectory, (err, files) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    // console.log(files);
+    const songs = files.map((file) => ({ name: file }));
+    res.json(songs);
+  });
+});
+
+app.get("/songs/:fileName", (req, res) => {
+  const fileName = req.params.fileName;
+  const filePath = path.join(songsDirectory, fileName);
+  console.log(filePath, "\n", fileName);
+
+  // Check if the file exists
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(404).json({ error: "File not found" });
+    }
+
+    // Stream the file to the response
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  });
 });
 
 app.listen(port, () => {
