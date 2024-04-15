@@ -32,6 +32,7 @@ function App() {
       setIsPlaying(false);
     } else {
       setCurrentSong(song);
+
       setIsPlaying(true);
     }
   };

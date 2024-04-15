@@ -72,7 +72,6 @@ app.post("/convert", async (req, res) => {
 
 const songsDirectory = path.join(__dirname, "music");
 
-
 app.get("/songs", (req, res) => {
   fs.readdir(songsDirectory, (err, files) => {
     if (err) {
@@ -87,6 +86,7 @@ app.get("/songs", (req, res) => {
 
 app.get("/songs/:fileName", (req, res) => {
   const fileName = req.params.fileName;
+  console.log(fileName);
   const filePath = path.join(songsDirectory, fileName);
   console.log(filePath, "\n", fileName);
 
