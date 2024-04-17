@@ -26,22 +26,30 @@
 
 const express = require("express");
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
 const { downloader } = require("./controllers/random-controller");
 const songRouter = require("./routes/song-routes");
+const userRouter = require("./routes/user-routes");
+const { authenticate } = require("./Middleware/User-Middleware");
+require("./config");
+require("dotenv").config();
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/convert", downloader);
 
 app.use("/songs", songRouter);
 
+app.use("/user", userRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.get("/", (req, res) => res.send("hello world"));
+app.get("/", authenticate, (req, res) => res.send("hello world"));
