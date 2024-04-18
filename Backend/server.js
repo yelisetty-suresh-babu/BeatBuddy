@@ -48,19 +48,6 @@ app.post("/convert", downloader);
 
 app.use("/songs", songRouter);
 
-// const songsDirectory = path.join(__dirname, "music");
-
-// app.get("/songs", (req, res) => {
-//   fs.readdir(songsDirectory, (err, files) => {
-//     if (err) {
-//       console.error(err);
-//       return res.status(500).json({ error: "Internal Server Error" });
-//     }
-//     const songs = files.map((file) => ({ name: file }));
-//     res.json(songs);
-//   });
-// });
-
 app.use("/user", userRouter);
 
 app.listen(port, () => {

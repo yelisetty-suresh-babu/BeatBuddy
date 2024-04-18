@@ -56,6 +56,7 @@ const getAllUsers = async (req, res, next) => {
 
 const logIn = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(req.body);
 
   let existingUser;
 

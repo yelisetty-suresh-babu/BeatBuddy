@@ -13,7 +13,7 @@ function Login() {
   const login = async () => {
     try {
       console.log(email_, password_);
-      const response = await axios.post("http://localhost:3000/users/login", {
+      const response = await axios.post("http://localhost:3000/user/login", {
         email: email_,
         password: password_,
       });
@@ -22,9 +22,9 @@ function Login() {
 
       // Store the access token in local storage
       localStorage.setItem("accessToken", accessToken);
-
+      console.log(accessToken);
       // Redirect user to profile page
-      navigate("/profile", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
       setError("Wrong Email or Password"); // Set error message to display to the user

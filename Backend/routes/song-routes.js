@@ -7,7 +7,7 @@ const {
 } = require("../controllers/song-controller");
 const { authenticate } = require("../Middleware/User-Middleware");
 
-songRouter.get("/", allsongsfinder);
+songRouter.get("/", authenticate, allsongsfinder);
 songRouter.get("/:fileName", singlesongfinder);
 
 module.exports = songRouter;

@@ -112,20 +112,51 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import AudioPlayer from "./AudioPlayer";
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
   const [songs, setSongs] = useState([]);
   const [trackIndex, setTrackIndex] = useState(0);
   const [isplay, setIsPlay] = useState(false);
   const audioRef = useRef(null);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/songs")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setSongs(data);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/songs")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          navigate("/login");
+          return; // Exit early if no token
+        }
+
+        const response = await fetch("http://localhost:3000/songs", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch songs");
+        }
+
+        const data = await response.json();
         setSongs(data);
-      })
-      .catch((err) => console.error(err));
+      } catch (error) {
+        console.error("Error fetching songs:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleClickPrevious = () => {
@@ -151,7 +182,6 @@ function Landing() {
   return (
     <div>
       <h1>List of Songs</h1>
-
 
       <ul>
         {songs.map((song, index) => (
