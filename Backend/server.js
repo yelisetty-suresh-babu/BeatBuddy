@@ -33,6 +33,8 @@ const userRouter = require("./routes/user-routes");
 const { authenticate } = require("./Middleware/User-Middleware");
 require("./config");
 require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
 const port = 3000;
@@ -45,6 +47,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post("/convert", downloader);
 
 app.use("/songs", songRouter);
+
+// const songsDirectory = path.join(__dirname, "music");
+
+// app.get("/songs", (req, res) => {
+//   fs.readdir(songsDirectory, (err, files) => {
+//     if (err) {
+//       console.error(err);
+//       return res.status(500).json({ error: "Internal Server Error" });
+//     }
+//     const songs = files.map((file) => ({ name: file }));
+//     res.json(songs);
+//   });
+// });
 
 app.use("/user", userRouter);
 

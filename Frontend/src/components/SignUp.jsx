@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { authActions } from "../../store/store";
 function SignUp() {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name_, setName] = useState("");
 
@@ -13,21 +13,25 @@ function SignUp() {
   const [password_, setPassword] = useState("");
 
   const signup_post = async () => {
-    await axios
-      .post("http://localhost:4000/api/users/signup", {
+    try {
+      const response = await axios.post("http://localhost:3000/users/signup", {
         userName: userName_,
         name: name_,
         email: email_,
         password: password_,
-      })
-      .then((res) => {
-        localStorage.setItem("userId", res.data.user._id);
-        console.log(res.data);
-      })
-    //   .then(() => dispatch(authActions.login()))
-      .then(() => navigate("/profile", { replace: true }))
-      .catch((e) => console.log(e));
+      });
+      const accessToken = response.data.accesstoken;
+
+      // Store the access token in local storage
+      localStorage.setItem("accessToken", accessToken);
+
+      // Redirect user to home page
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Signup failed:", error);
+    }
   };
+
   const t = (e) => {
     e.preventDefault();
 
@@ -60,7 +64,7 @@ function SignUp() {
             className="w-[120%] m-3 h-10 rounded-xl border-[1px] p-2 text-center border-black"
             placeholder="Enter the User Name"
           />
-        
+
           <input
             type="email"
             value={email_}

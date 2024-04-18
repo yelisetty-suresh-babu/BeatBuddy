@@ -24,7 +24,15 @@ const signUp = async (req, res, next) => {
 
     await user.save(); // Wait for user to be saved
 
-    return res.status(201).json({ user });
+    console.log("user registered");
+    const accesstoken = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.ACCESS_TOKEN_SECRET
+    );
+
+    return res.status(200).json({ accesstoken });
   } catch (error) {
     console.log(error); // Log the error for debugging
     return res.status(500).json({ message: "Error signing up user" }); // Respond with an error message
@@ -67,11 +75,11 @@ const logIn = async (req, res, next) => {
   }
 
   const user = {
-    name: email,
+    id: existingUser._id,
   };
   const accesstoken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
-  return res.status(200).json({ token: accesstoken });
+  return res.status(200).json({ accesstoken });
 };
 
 module.exports = { signUp, getAllUsers, logIn }; // Export the signUp function

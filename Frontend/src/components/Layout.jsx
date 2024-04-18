@@ -1,16 +1,25 @@
-import React from "react"
-import { Outlet } from "react-router-dom"
-import Header from "./Header"
-import Footer from "./Footer"
+import React, { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+
+import Header from "./Header";
+import Footer from "./Footer";
 
 export default function Layout() {
-    return (
-        <div className="h-screen">
-            <Header />
-            <main className="  ">
-                <Outlet />
-            </main>
+  useEffect(() => {
+    // Check for token in local storage or wherever you store it
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Redirect to login page if no token
+        // navigate("/login");
+    }
+  }, []); // No dependencies
 
-        </div>
-    )
+  return (
+    <div className="h-screen">
+      <Header />
+      <main className=" ">
+        <Outlet />
+      </main>
+    </div>
+  );
 }

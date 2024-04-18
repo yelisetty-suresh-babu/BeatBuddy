@@ -4,32 +4,33 @@ import React, { useEffect, useState } from "react";
 // import { authActions } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 function Login() {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email_, setEmail] = useState("");
   const [password_, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const login = async () => {
-    await axios
-      .post("http://localhost:4000/api/users/login", {
+    try {
+      console.log(email_, password_);
+      const response = await axios.post("http://localhost:3000/users/login", {
         email: email_,
         password: password_,
-      })
-      .then((res) => {
-        localStorage.setItem("userId", res.data.user._id);
-        console.log(res.data);
-      })
-    //   .then(() => dispatch(authActions.login()))
-      .then(() => {
-        navigate("/profile", { replace: true });
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("Wrong Password");
-        setError("Wrong Password");
       });
+
+      const accessToken = response.data.accesstoken;
+
+      // Store the access token in local storage
+      localStorage.setItem("accessToken", accessToken);
+
+      // Redirect user to profile page
+      navigate("/profile", { replace: true });
+    } catch (error) {
+      console.error("Login failed:", error);
+      setError("Wrong Email or Password"); // Set error message to display to the user
+    }
   };
+
   const t = (e) => {
     e.preventDefault();
     console.log();
