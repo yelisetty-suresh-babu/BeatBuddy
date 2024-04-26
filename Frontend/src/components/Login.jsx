@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { authActions } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from 'formik';
+
 function Login() {
   //   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email_, setEmail] = useState("");
   const [password_, setPassword] = useState("");
-  const [error, setError] = useState(null);
+
 
   const login = async () => {
     try {
@@ -27,7 +27,7 @@ function Login() {
       navigate("/", { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
-      setError("Wrong Email or Password"); // Set error message to display to the user
+
     }
   };
 
@@ -50,7 +50,7 @@ function Login() {
   }, []);
   return (
     <>
-      <div className="mr-36">
+      <div className="">
         <h1 className="text-black text-3xl font-extrabold text-center ml-12">
           Login
         </h1>
@@ -69,11 +69,7 @@ function Login() {
             className="w-[120%] m-3 h-10 rounded-xl  border-[1px] p-2 text-center border-black"
             placeholder="Enter the Password"
           />
-          {error ? (
-            <h1 className="ml-14 self-center text-lg font-bold text-red-600 animate-bounce ">
-              {error + " ?"}
-            </h1>
-          ) : null}
+          
           <button
             type="submit"
             className="ml-12 w-[200px] inline-block px-5 py-2 mt-2 text-white bg-blue-600 rounded-xl hover:bg-blue-700 "

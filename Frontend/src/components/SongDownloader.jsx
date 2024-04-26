@@ -2,7 +2,7 @@ import axios from "axios";
 
 import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function SongDownloader() {
   // useEffect(() => {
@@ -11,8 +11,12 @@ function SongDownloader() {
   const [link, setLink] = useState("");
   const [names, setNames] = useState();
   const [url, setUrl] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+        navigate('/login');
+    }
     const storedLink = localStorage.getItem("savedLink");
     if (storedLink) {
       setLink(storedLink);
@@ -175,7 +179,7 @@ function SongDownloader() {
           />
           <button
             type="submit"
-            className="bg-black text-white p-1 px-4 rounded-lg"
+            className="bg-blue-600 text-white p-1 px-4 rounded-lg"
           >
             click{" "}
           </button>
@@ -193,13 +197,16 @@ function SongDownloader() {
                 album: data.album,
               }}
               key={index}
+              className=""
             >
-              <Cards
-                key={index}
-                name={data.name}
-                image2={data.image2}
-                artist={data.artist}
-              />
+              <div>
+                <Cards
+                  key={index}
+                  name={data.name}
+                  image2={data.image2}
+                  artist={data.artist}
+                />
+              </div>
             </Link>
           ))}
         </div>

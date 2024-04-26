@@ -45,7 +45,7 @@ function SignUp() {
   };
   return (
     <>
-      <div className=" ml-32 ">
+      <div className="  ">
         <h1 className="text-black text-3xl font-extrabold text-center ml-12">
           Sign Up
         </h1>
@@ -62,7 +62,7 @@ function SignUp() {
             value={userName_}
             onChange={(e) => setUserName(e.target.value)}
             className="w-[120%] m-3 h-10 rounded-xl border-[1px] p-2 text-center border-black"
-            placeholder="Enter the User Name"
+            placeholder="Enter the Username"
           />
 
           <input

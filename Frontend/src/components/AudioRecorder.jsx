@@ -4,6 +4,7 @@ import AnimeBtn from "./AnimeBtn.jsx";
 import fs from "fs";
 
 import Readable from "stream";
+import { Navigate, useNavigate } from "react-router";
 
 function AudioRecorder() {
   const [recording, setRecording] = useState(false);
@@ -16,8 +17,13 @@ function AudioRecorder() {
   const [scrollToEnd, setScrollToEnd] = useState(false);
   const [songData, setSongdata] = useState({});
   const contentRef = useRef(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setShow(false);
+    // if (!localStorage.getItem("accessToken")) {
+    //   Navigate("/login");
+    // }
   }, []);
 
   useEffect(() => {
@@ -193,8 +199,7 @@ function AudioRecorder() {
           method: "POST",
           url: "https://shazam-api6.p.rapidapi.com/shazam/recognize/",
           headers: {
-            "X-RapidAPI-Key":
-            import.meta.env.VITE_rapid_api_key,
+            "X-RapidAPI-Key": import.meta.env.VITE_rapid_api_key,
             "X-RapidAPI-Host": "shazam-api6.p.rapidapi.com",
             "Content-Type": "multipart/form-data",
           },
@@ -234,7 +239,7 @@ function AudioRecorder() {
       {songData.track?.images?.coverart ? (
         <div
           className=" mt-5 flex items-end justify-center
-         h-[900px] w-[800px] bg-center bg-no-repeat bg-cover rounded-xl  shadow-lg opac "
+         h-[900px] w-[800px] bg-center bg-no-repeat bg-cover rounded-xl  shadow-lg animate-fade "
           style={{
             backgroundImage: `url('${songData?.track?.images?.coverart}')`,
           }}

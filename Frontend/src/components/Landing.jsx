@@ -180,24 +180,36 @@ function Landing() {
   };
 
   return (
-    <div>
-      <h1>List of Songs</h1>
+    <div className="">
+      <div className="p-4">
+        <h1 className="font-semibold">List of Songs</h1>
 
-      <ul>
-        {songs.map((song, index) => (
-          <li key={index}>
-            {song.name}
-            <button
+        <ul className="flex flex-col items-center mx-5">
+          {songs.map((song, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center w-full my-2 cursor-pointer"
               onClick={() => {
                 setTrackIndex(index);
                 setIsPlay(true);
               }}
             >
-              Play
-            </button>
-          </li>
-        ))}
-      </ul>
+              <p className="self-start">{index + 1}</p>
+              <p>{song.name.slice(0, -4)}</p>
+              <button
+                onClick={() => {
+                  setTrackIndex(index);
+                  setIsPlay(true);
+                }}
+                className="mx-2 bg-blue-500 text-white px-3 py-1 rounded-lg cursor-pointer"
+              >
+                Play
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <AudioPlayer
         ref={audioRef}
         src={`http://localhost:3000/songs/${songs[trackIndex]?.name}`}

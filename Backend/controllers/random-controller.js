@@ -3,6 +3,7 @@ const { getVideoMP3Base64 } = require("yt-get");
 
 const downloader = async (req, res) => {
   try {
+    console.log(req.body);
     const { videoID } = req.body;
 
     if (!videoID) {
@@ -33,7 +34,6 @@ const downloader = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-
 };
 
 module.exports = { downloader };

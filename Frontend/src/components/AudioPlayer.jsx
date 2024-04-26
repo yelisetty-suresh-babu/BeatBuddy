@@ -63,8 +63,9 @@ const AudioPlayer = ({ src, next, prev, isplay }) => {
     setDuration(audioRef.current.duration);
   };
 
+
   return (
-    <div className="bottom-0 fixed z-[1] w-full pb-2 bg-red-600 rounded-lg">
+    <div className="bottom-0 fixed z-[1] w-full pb-2 bg-gray-400 rounded-lg m-2">
       <audio
         autoPlay={isplay}
         onPlaying={() => setIsPlaying(true)}

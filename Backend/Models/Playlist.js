@@ -16,6 +16,11 @@ const PlaylistSchema = new Schema(
       ref: "User",
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,
