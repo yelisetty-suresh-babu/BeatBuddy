@@ -23,19 +23,19 @@ function Login_Signup() {
     localStorage.removeItem("savedLink");
   }, []);
   return (
-    <div className="flex items-center justify-center mt-20 fade-up-element ">
-      <div className="bg-white shadow-2xl h-[500px] w-[50%] rounded-xl flex flex-col items-center ">
+    <div className="flex items-center justify-center mt-10 fade-up-element ">
+      <div className=" bg-skin-fill-signup shadow-2xl h-[500px] w-[50%] rounded-xl flex flex-col items-center ">
         {/* <div className="w-[1px] h-[300px] bg-gray-400 rounded-xl "></div> */}
-        <div className="flex  justify-evenly  w-[40%] items-center  pl-10 m-10">
+        <div className="flex  justify-evenly  w-2/5 items-center my-10">
           <button
             onClick={() => setSigned("signup")}
-            className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700"
+            className=" bg-skin-fill text-white px-3 py-1 rounded-lg hover:bg-skin-button-accent-hover"
           >
             Signup
           </button>
           <button
             onClick={() => setSigned("login")}
-            className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700"
+            className=" bg-skin-fill text-white px-3 py-1 rounded-lg hover:bg-skin-button-accent-hover"
           >
             Login
           </button>

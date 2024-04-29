@@ -10,12 +10,12 @@ export default function Layout() {
     const token = localStorage.getItem("token");
     if (!token) {
       // Redirect to login page if no token
-        // navigate("/login");
+      // navigate("/login");
     }
   }, []); // No dependencies
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen theme-dark bg-skin-fill">
       <Header />
       <main className=" ">
         <Outlet />

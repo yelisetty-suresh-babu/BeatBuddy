@@ -52,13 +52,12 @@ const BoxContainer = styled.div`
 const Box = styled.div`
   transform: scaleY(0.4);
   height: 100%;
-  width: 14px;
-  background: #40a2e3;
+  width: 12px;
   // background: white;
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  border-radius: 50px;
+  border-radius: 48px;
   margin: 0px 4px;
 
   &.box1 {
@@ -82,7 +81,7 @@ const Box = styled.div`
   }
 `;
 
-const App = () => {
+const AnimeBtn = () => {
   const [clicked, setClicked] = useState(true);
   return (
     <div
@@ -101,19 +100,19 @@ const App = () => {
       >
         {clicked ? (
           <>
-            <Box className="box " />
-            <Box className="box " />
-            <Box className="box " />
-            <Box className="box " />
-            <Box className="box " />
+            <Box className="box bg-skin-fill-2" />
+            <Box className="box bg-skin-fill-2" />
+            <Box className="box bg-skin-fill-2" />
+            <Box className="box bg-skin-fill-2" />
+            <Box className="box bg-skin-fill-2" />
           </>
         ) : (
           <>
-            <Box className="box box1" />
-            <Box className="box box2" />
-            <Box className="box box3" />
-            <Box className="box box4" />
-            <Box className="box box5" />
+            <Box className="box box1 bg-skin-fill-2" />
+            <Box className="box box2 bg-skin-fill-2" />
+            <Box className="box box3 bg-skin-fill-2" />
+            <Box className="box box4 bg-skin-fill-2" />
+            <Box className="box box5 bg-skin-fill-2" />
           </>
         )}
       </BoxContainer>
@@ -121,4 +120,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AnimeBtn;
