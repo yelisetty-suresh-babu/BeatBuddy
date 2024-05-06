@@ -135,7 +135,6 @@ function SignUp_sample() {
   const navigate = useNavigate();
 
   const onSubmit = async (values, actions) => {
-    console.log(values, actions);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
     signup(values);
@@ -182,19 +181,21 @@ function SignUp_sample() {
   };
 
   return (
-    <>
-      <div className="text-skin-base-2 ">
-        <h1 className="text-skin-heading-1 text-3xl pb-2 font-bold text-center tracking-wide">
-          Sign Up
-        </h1>
-        <form onSubmit={handleSubmit} className="flex flex-col ">
+    <div className="text-skin-base-2 ">
+      <h1 className="text-skin-heading-1 text-3xl pb-2 font-bold text-center tracking-wide">
+        Sign Up
+      </h1>
+      <form onSubmit={handleSubmit} className="flex flex-col ">
+        {" "}
+        {/* Add space-y-2 class */}
+        <div>
           <input
             type="text"
             id="name"
             value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-full placeholder:text-[#fff18a] bg-skin-fill h-10 rounded-lg border-[1px] p-2 text-center outline-none ${
               errors.name && touched.name
                 ? "border-red-800"
                 : touched.name
@@ -203,19 +204,20 @@ function SignUp_sample() {
             }`}
             placeholder="Name"
           />
-          {errors.name && touched.name && (
-            <p className="text-red-600 py-1 ">{errors.name}</p>
+          {errors.name && touched.name ? (
+            <p className="text-red-600 my-1 mx-1 mx-1">{errors.name}</p>
+          ) : (
+            <p className="my-8"></p>
           )}
-          { !touched.name && (
-            <p className="text-red-600 py-[12px] "> </p>
-          )}
+        </div>
+        <div>
           <input
             type="text"
             id="username"
             value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill    h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-full placeholder:text-[#fff18a] bg-skin-fill h-10 rounded-lg border-[1px] p-2 text-center outline-none ${
               errors.username && touched.username
                 ? "border-red-800"
                 : touched.username
@@ -224,20 +226,20 @@ function SignUp_sample() {
             }`}
             placeholder="Username"
           />
-          {errors.username && touched.username && (
-            <p className="text-red-600 py-1">{errors.username}</p>
+          {errors.username && touched.username ? (
+            <p className="text-red-600 my-1 mx-1">{errors.username}</p>
+          ) : (
+            <p className="my-8"></p>
           )}
-          { !touched.username && (
-            <p className="text-red-600 py-[12px]"> </p>
-          )}
-
+        </div>
+        <div>
           <input
             type="email"
             id="email"
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill  h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-[293px] placeholder:text-[#fff18a] bg-skin-fill h-10 rounded-lg border-[1px] p-2 text-center outline-none ${
               errors.email && touched.email
                 ? "border-red-800"
                 : touched.email
@@ -246,20 +248,20 @@ function SignUp_sample() {
             }`}
             placeholder="Email"
           />
-          {errors.email && touched.email && (
-            <p className="text-red-600 py-1">{errors.email}</p>
+          {errors.email && touched.email ? (
+            <p className="text-red-600 my-1 mx-1 ">{errors.email}</p>
+          ) : (
+            <p className="my-8"></p>
           )}
-          {  !touched.email && (
-            <p className="text-red-600 py-[12px]"> </p>
-          )}
-
+        </div>
+        <div>
           <input
             type="password"
             id="password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill    h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-[293px]  placeholder:text-[#fff18a] bg-skin-fill h-10 rounded-lg border-[1px] p-2 text-center outline-none ${
               errors.password && touched.password
                 ? "border-red-800"
                 : touched.password
@@ -268,25 +270,23 @@ function SignUp_sample() {
             }`}
             placeholder="Password"
           />
-          {errors.password && touched.password && (
-            <p className="text-red-600  py-1">{errors.password}</p>
+          {errors.password && touched.password ? (
+            <p className="text-red-600 my-1 mx-1 ">{errors.password}</p>
+          ) : (
+            <p className="my-8"></p>
           )}
-          { !touched.password && (
-            <p className="text-red-600 py-[12px]"> </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`m-auto w-2/3 inline-block px-5 py-2  bg-[#eab308] rounded-lg hover:bg-skin-button-accent-hover *:${
-              isSubmitting && "opacity-[0.35]"
-            }`}
-          >
-            Proceed
-          </button>
-        </form>
-      </div>
-    </>
+        </div>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-2/3 m-auto inline-block px-5 py-2 bg-[#eab308] rounded-lg hover:bg-skin-button-accent-hover ${
+            isSubmitting && "opacity-[0.35]"
+          }`}
+        >
+          Proceed
+        </button>
+      </form>
+    </div>
   );
 }
 

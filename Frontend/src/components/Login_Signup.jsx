@@ -40,7 +40,7 @@ function Login_Signup() {
             Login
           </button>
         </div>
-        {signed === "signup" ? <SignUp /> : <Login_sample />}
+        {signed === "signup" ? <SignUp_sample /> : <Login_sample />}
       </div>
     </div>
   );

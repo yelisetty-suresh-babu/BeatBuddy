@@ -7,6 +7,7 @@ import { LoginSchema } from "../Schemas";
 function Login_sample() {
   //   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error_, setError] = useState();
 
   const onSubmit = async (values, actions) => {
     console.log(values, actions);
@@ -47,6 +48,7 @@ function Login_sample() {
       // Redirect user to profile page
       navigate("/", { replace: true });
     } catch (error) {
+      setError(error);
       console.error("Login failed:", error);
     }
   };
@@ -76,7 +78,7 @@ function Login_sample() {
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill my-3 h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-[293px] placeholder:text-[#fff18a] bg-skin-fill my-3 h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
               errors.email && touched.email
                 ? "border-red-800"
                 : touched.email
@@ -95,7 +97,7 @@ function Login_sample() {
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full placeholder:text-[#fff18a] bg-skin-fill my-3 h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
+            className={`w-[293px] placeholder:text-[#fff18a] bg-skin-fill my-3 h-10 rounded-lg border-[1px] p-2 text-center outline-none  ${
               errors.password && touched.password
                 ? "border-red-800"
                 : touched.password
@@ -109,6 +111,12 @@ function Login_sample() {
           ) : (
             <p className="text-red-600  mb-2"></p>
           )}
+          {error_ && (
+            <p className="text-red-500  mb-2">
+              Enter the correct Email and Password
+            </p>
+          )}
+
           <button
             type="submit"
             disabled={isSubmitting}
