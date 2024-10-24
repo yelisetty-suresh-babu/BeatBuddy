@@ -13,7 +13,7 @@ const signUp = async (req, res, next) => {
       return res.status(400).json({ message: "User already exists!" });
     }
 
-    const hashedPassword = bcrypt.hashSync(password, 10); // Increase rounds for stronger hashing
+    const hashedPassword = bcrypt.hashSync(password, 10); 
     const user = new User({
       userName,
       name,
@@ -22,7 +22,7 @@ const signUp = async (req, res, next) => {
       playlists: [],
     });
 
-    await user.save(); // Wait for user to be saved
+    await user.save(); 
 
     console.log("user registered");
     const accesstoken = jwt.sign(
@@ -34,8 +34,8 @@ const signUp = async (req, res, next) => {
 
     return res.status(200).json({ accesstoken });
   } catch (error) {
-    console.log(error); // Log the error for debugging
-    return res.status(500).json({ message: "Error signing up user" }); // Respond with an error message
+    console.log(error); 
+    return res.status(500).json({ message: "Error signing up user" }); 
   }
 };
 
@@ -83,4 +83,4 @@ const logIn = async (req, res, next) => {
   return res.status(200).json({ accesstoken });
 };
 
-module.exports = { signUp, getAllUsers, logIn }; // Export the signUp function
+module.exports = { signUp, getAllUsers, logIn }; 

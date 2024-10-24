@@ -413,6 +413,8 @@ function AudioRecorder() {
 
 export default AudioRecorder;
 
+// <h1 className="text-white text-4xl font-bold">Song could not be determined , please try again</h1>
+
 {
   /* <div className="flex ">
 <div>

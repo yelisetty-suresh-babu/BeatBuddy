@@ -466,7 +466,7 @@ function Landing() {
         const token = localStorage.getItem("accessToken");
         if (!token) {
           navigate("/login");
-          return; // Exit early if no token
+          return; 
         }
 
         const response = await fetch("http://localhost:3000/songs", {

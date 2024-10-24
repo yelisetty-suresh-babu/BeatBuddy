@@ -156,7 +156,7 @@ const AudioPlayer = ({ src, next, prev, isplay, name }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(isplay);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(NaN); // Initialize duration to NaN
+  const [duration, setDuration] = useState(NaN); 
   const [isLooping, setIsLooping] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
@@ -178,10 +178,10 @@ const AudioPlayer = ({ src, next, prev, isplay, name }) => {
 
   const handleSeek = (e) => {
     const newTime = parseFloat(e.target.value);
-    audioRef.current.currentTime = newTime; // Set the currentTime of the audio element
-    setCurrentTime(newTime); // Update currentTime state
+    audioRef.current.currentTime = newTime; 
+    setCurrentTime(newTime); 
     if (!audioRef.current.paused) {
-      // If audio is playing, pause it during seek
+
       audioRef.current.pause();
       setIsPlaying(false);
     }
@@ -194,11 +194,11 @@ const AudioPlayer = ({ src, next, prev, isplay, name }) => {
   };
 
   const handleNext = () => {
-    // Implement logic for playing the next track
+
   };
 
   const handlePrevious = () => {
-    // Implement logic for playing the previous track
+
   };
 
   const handleLoopToggle = () => {
@@ -207,7 +207,6 @@ const AudioPlayer = ({ src, next, prev, isplay, name }) => {
   };
 
   const handleLoadedMetadata = () => {
-    // Update duration when metadata is loaded
     setDuration(audioRef.current.duration);
   };
 
@@ -264,7 +263,7 @@ const AudioPlayer = ({ src, next, prev, isplay, name }) => {
               <img src={play} className=" " alt="" />
             )}
           </button>
-          {/* <button onClick={next}>Next</button> */}
+
           <button
             onClick={() => {
               // audioRef.current.pause();

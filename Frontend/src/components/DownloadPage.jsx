@@ -35,12 +35,16 @@ function DownloadPage() {
     // const id = "a7GITgqwDVg";
     console.log(id);
     setDownloading(true);
-    const res = await axios.post("http://localhost:3000/convert", {
-      videoID: id,
-    });
-    setDownloading(false);
-    setDownloaded(true);
-    console.log(res);
+    try {
+      const res = await axios.post("http://localhost:3000/convert", {
+        videoID: id,
+      });
+      setDownloading(false);
+      setDownloaded(true);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const goBack = () => {
