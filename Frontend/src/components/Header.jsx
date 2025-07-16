@@ -1,64 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router";
-// import { Link, useLocation } from "react-router-dom";
-
-// function Header() {
-//   const navigate = useNavigate();
-//   const loc = useLocation();
-//   const [val, setVal] = useState(true);
-//   // console.log(loc.pathname);
-//   const logout = () => {
-//     localStorage.removeItem("accessToken");
-//     navigate("/login", { replace: true });
-//   };
-//   // useEffect(() => {
-//   //   if (localStorage.getItem("accessToken")) {
-//   //     setVal(true);
-//   //   }
-//   // }, []);
-//   return (
-//     <div className="flex justify-between  pt-5 text-white">
-//       <h1 className="self-start ml-10 ">
-//         <Link
-//           className={`${
-//             loc.pathname === "/" ? "text-xl font-extrabold" : "font-extralight"
-//           } `}
-//           to="/"
-//         >
-//           BeatBuddy
-//         </Link>{" "}
-//         /{" "}
-//         <Link
-//           to="/download"
-//           className={`${
-//             loc.pathname === "/download" ? " text-xl font-extrabold " : "font-extralight"
-//           } `}
-//         >
-//           Download
-//         </Link>{" "}
-//         /{" "}
-//         <Link
-//           className={`${
-//             loc.pathname === "/recognize" ? "text-xl font-extrabold" : "font-extralight"
-//           } `}
-//           to="/recognize"
-//         >
-//           Recognize
-//         </Link>
-//       </h1>
-//       {val && (
-//         <button
-//           onClick={logout}
-//           className="bg-blue-600 text-white px-3 py-1 rounded-lg mr-10 hover:bg-blue-700 "
-//         >
-//           logout
-//         </button>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Header;
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -68,66 +7,48 @@ function Header() {
   const navigate = useNavigate();
   const loc = useLocation();
   const [val, setVal] = useState(true);
-  // console.log(loc.pathname);
   const logout = () => {
     localStorage.removeItem("accessToken");
     navigate("/login", { replace: true });
   };
-  // useEffect(() => {
-  //   if (localStorage.getItem("accessToken")) {
-  //     setVal(true);
-  //   }
-  // }, []);
   return (
-    <>
-      <h1 className="font-semibold ml-10 text-5xl text-skin-heading-1 tracking-wider pt-2">
-        <Link to="/">BeatBuddy</Link>
-      </h1>
-      <div className="flex justify-between text-skin-main ">
+    // <div className="w-full flex flex-col items-center bg-transparent backdrop-blur-md shadow-lg rounded-b-2xl py-5 md:py-6 mb-8 sticky top-0 z-40 gap-2 md:gap-4">
+      <div className="flex items-center justify-between w-full max-w-5xl px-4 md:px-8 gap-4 p-5 mx-auto sticky top-0 z-40 bg-transparent backdrop-blur-md shadow-lg w-full">
+        <Link to="/" className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg tracking-wider hover:scale-105 transition-transform">
+          BeatBuddy
+        </Link>
         {loc.pathname !== "/login" && (
-          <h1 className="self-start mx-10">
+          <nav className="flex gap-3 md:gap-6 items-center">
             <Link
-              className={`${
-                loc.pathname === "/" ? "text-3xl font-bold" : "font-extralight"
-              } `}
+              className={`px-3 md:px-4 py-2 rounded-full font-semibold transition-all text-base md:text-lg hover:bg-yellow-400/30 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400/60 ${loc.pathname === "/" ? "bg-yellow-400/80 text-slate-900 shadow" : "text-white/90"}`}
               to="/"
             >
               Player
-            </Link>{" "}
-            /{" "}
+            </Link>
             <Link
               to="/download"
-              className={`${
-                loc.pathname === "/download"
-                  ? " text-3xl font-bold "
-                  : "font-extralight"
-              } `}
+              className={`px-3 md:px-4 py-2 rounded-full font-semibold transition-all text-base md:text-lg hover:bg-yellow-400/30 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400/60 ${loc.pathname === "/download" ? "bg-yellow-400/80 text-slate-900 shadow" : "text-white/90"}`}
             >
               Downloader
-            </Link>{" "}
-            /{" "}
+            </Link>
             <Link
-              className={`${
-                loc.pathname === "/recognize"
-                  ? "text-3xl font-bold"
-                  : "font-extralight"
-              } `}
+              className={`px-3 md:px-4 py-2 rounded-full font-semibold transition-all text-base md:text-lg hover:bg-yellow-400/30 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400/60 ${loc.pathname === "/recognize" ? "bg-yellow-400/80 text-slate-900 shadow" : "text-white/90"}`}
               to="/recognize"
             >
               Recognizer
             </Link>
-          </h1>
+          </nav>
         )}
         {loc.pathname !== "/login" && (
           <button
             onClick={logout}
-            className=" bg-[#eab308] text-skin-base px-3 py-1 rounded-lg mr-10 hover:bg-skin-button-accent text-white"
+            className="ml-2 md:ml-6 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-slate-900 font-bold px-4 md:px-5 py-2 rounded-full shadow-md hover:scale-105 hover:from-yellow-300 hover:to-yellow-400 transition-all focus:outline-none focus:ring-2 focus:ring-yellow-400/60"
           >
             Logout
           </button>
         )}
       </div>
-    </>
+    // </div>
   );
 }
 
